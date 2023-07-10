@@ -14,12 +14,12 @@ void sleep(int milliseconds);
 void intro();
 void menu();
 void InitializeBoard(int row, int col);
-void AllCardsOpen(int row, int col); // oyuncunun konumları ve sayıları ezberlemesi için 
+void AllCardsOpen(int row, int col); // oyuncunun konumlarÃ½ ve sayÃ½larÃ½ ezberlemesi iÃ§in 
 void PrintBoard(int row, int col);
 bool IsGameOver(int row, int col);
 void ClearScreen();
 void WaitTime(int number);
-void gotoxy(int x, int y); // Windows konsolunda sağ üst köşeye metin yazdıran fonksiyon
+void gotoxy(int x, int y); // Windows konsolunda saÃ° Ã¼st kÃ¶Ã¾eye metin yazdÃ½ran fonksiyon
 
 int** board;
 bool** revealed;
@@ -80,11 +80,11 @@ void intro()
 
 void Save_Game(int** board, bool** revealed, int row, int col, int moves) 
 {
-    ofstream save1("board.txt"); // tüm oyun alanındaki sayılar ve konumları
-    ofstream save2("revealed.txt"); // sadece açılan sayılar ve konumları
-    ofstream save3("row.txt"); // oyun alanı satır ve sütun sayısı
-    ofstream save4("col.txt"); // sütun sayısı
-    ofstream save5("move.txt"); // hamle sayısı
+    ofstream save1("board.txt"); // tÃ¼m oyun alanÃ½ndaki sayÃ½lar ve konumlarÃ½
+    ofstream save2("revealed.txt"); // sadece aÃ§Ã½lan sayÃ½lar ve konumlarÃ½
+    ofstream save3("row.txt"); // oyun alanÃ½ satÃ½r ve sÃ¼tun sayÃ½sÃ½
+    ofstream save4("col.txt"); // sÃ¼tun sayÃ½sÃ½
+    ofstream save5("move.txt"); // hamle sayÃ½sÃ½
     if (!save1.is_open() || !save2.is_open() || !save3.is_open() ||!save4.is_open() || !save5.is_open())
     {
         cout << "File could not be created.";
@@ -103,7 +103,7 @@ void Save_Game(int** board, bool** revealed, int row, int col, int moves)
         save4 << col;
         save5 << moves;
     }
-    save1.close(); // dosyayı kapatıyoruz.
+    save1.close(); // dosyayÃ½ kapatÃ½yoruz.
     save2.close();
     save3.close();
     save4.close();
@@ -114,7 +114,7 @@ void menu()
 {
     ClearScreen();
 jump4:
-    srand(time(NULL)); // Rastgelelik için tohumu ayarla
+    srand(time(NULL)); // Rastgelelik iÃ§in tohumu ayarla
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
     cout << "*******************************" << endl;
@@ -169,8 +169,8 @@ jump3:
             goto jump;
         }
 
-        InitializeBoard(row, col); // Oyun alanının oluşturulması
-        AllCardsOpen(row, col); // oyun alanını 5 saniye göster
+        InitializeBoard(row, col); // Oyun alanÃ½nÃ½n oluÃ¾turulmasÃ½
+        AllCardsOpen(row, col); // oyun alanÃ½nÃ½ 5 saniye gÃ¶ster
         WaitTime(5);
 
         int firstCardRow, firstCardCol, secondCardRow, secondCardCol;
@@ -189,18 +189,18 @@ jump3:
             SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
             cout << "Please enter the position of the first card (row column): ";
             cin >> firstCardRow >> firstCardCol;
-            if (GetAsyncKeyState(VK_SHIFT)) { // oyun esnasında oyunu kaydetmek için. SHIFT TUŞU İLE
+            if (GetAsyncKeyState(VK_SHIFT)) { // oyun esnasÃ½nda oyunu kaydetmek iÃ§in. SHIFT TUÃU ÃLE
                 Save_Game(board, revealed, row, col, moves);
                 ClearScreen();
                 cout << "Your game has been successfully saved!" << endl;
                 WaitTime(2);
                 menu();
             }
-            if (GetAsyncKeyState(VK_ESCAPE)) { // oyun esnasında doğrudan çıkış için. ESC İLE.
+            if (GetAsyncKeyState(VK_ESCAPE)) { // oyun esnasÃ½nda doÃ°rudan Ã§Ã½kÃ½Ã¾ iÃ§in. ESC ÃLE.
                 ClearScreen();
                 exit(0);
             }
-            // Girilen konum geçerli değilse veya kart zaten açıldıysa tekrar iste
+            // Girilen konum geÃ§erli deÃ°ilse veya kart zaten aÃ§Ã½ldÃ½ysa tekrar iste
             if (firstCardRow <= 0 || firstCardRow > row || firstCardCol <= 0 || firstCardCol > col || revealed[firstCardRow - 1][firstCardCol - 1])
             {
                 cout << "Please make a valid move." << endl;
@@ -215,12 +215,12 @@ jump3:
             cout << "\n\nPlease enter the position of the second card (row column): ";
             cin >> secondCardRow >> secondCardCol;
             moves++;
-            // Girilen konum geçerli olsa veya kart zaten açıldıysa tekrar iste
+            // Girilen konum geÃ§erli olsa veya kart zaten aÃ§Ã½ldÃ½ysa tekrar iste
             if (secondCardRow <= 0 || secondCardRow > row || secondCardCol <= 0 || secondCardCol > col || revealed[secondCardRow-1][secondCardCol-1])
             {
                 cout << "Please make a valid move." << endl;
                 WaitTime(1);
-                // İlk kartı tekrar kapat
+                // Ãlk kartÃ½ tekrar kapat
                 revealed[firstCardRow-1][firstCardCol-1] = false;
                 continue;
             }
@@ -229,7 +229,7 @@ jump3:
             revealed[secondCardRow-1][secondCardCol-1] = true;
             PrintBoard(row, col);
 
-            // Kartlar eşleşmişse
+            // Kartlar eÃ¾leÃ¾miÃ¾se
             if (board[firstCardRow-1][firstCardCol-1] == board[secondCardRow-1][secondCardCol-1])
             {
                 cout << "Match found!" << endl;
@@ -239,7 +239,7 @@ jump3:
             {
                 cout << "No match found." << endl;
                 WaitTime(1);
-                // Kartları kapat
+                // KartlarÃ½ kapat
                 revealed[firstCardRow-1][firstCardCol-1] = false;
                 revealed[secondCardRow-1][secondCardCol-1] = false;
             }
@@ -251,7 +251,7 @@ jump3:
         cout << "You won the game in " << moves << " moves" << endl;
         WaitTime(3);
         menu();
-        // Bellekten dinamik olarak oluşturulan alanları temizleme
+        // Bellekten dinamik olarak oluÃ¾turulan alanlarÃ½ temizleme
         for (int i = 0; i < row; i++)
         {
             delete[] board[i];
@@ -274,10 +274,10 @@ jump3:
         {
             int row, col;
 
-            inputFile3 >> row; // Kaydedilen satır sayısını oku
-            inputFile4 >> col; // Kaydedilen sütun sayısını oku
-            inputFile5 >> moves; // hamle sayısı
-            // Bellekten dinamik olarak oyun alanı ve revealed matrisini oluştur
+            inputFile3 >> row; // Kaydedilen satÃ½r sayÃ½sÃ½nÃ½ oku
+            inputFile4 >> col; // Kaydedilen sÃ¼tun sayÃ½sÃ½nÃ½ oku
+            inputFile5 >> moves; // hamle sayÃ½sÃ½
+            // Bellekten dinamik olarak oyun alanÃ½ ve revealed matrisini oluÃ¾tur
             board = new int* [row];
             revealed = new bool* [row];
 
@@ -288,12 +288,12 @@ jump3:
 
                 for (int j = 0; j < col; j++)
                 {
-                    inputFile1 >> board[i][j]; // Kaydedilen board değerlerini oku
-                    inputFile2 >> revealed[i][j]; // Kaydedilen revealed değerlerini oku
+                    inputFile1 >> board[i][j]; // Kaydedilen board deÃ°erlerini oku
+                    inputFile2 >> revealed[i][j]; // Kaydedilen revealed deÃ°erlerini oku
                 }
             }
 
-            inputFile1.close(); // Dosyaları kapat
+            inputFile1.close(); // DosyalarÃ½ kapat
             inputFile2.close();
             inputFile3.close();
             inputFile4.close();
@@ -301,7 +301,7 @@ jump3:
             cout << "Saved game successfully loaded!" << endl;
             WaitTime(2);
 
-            // Oyunun devam ettiği noktaya gitmek için gereken değişiklikler
+            // Oyunun devam ettiÃ°i noktaya gitmek iÃ§in gereken deÃ°iÃ¾iklikler
             int firstCardRow, firstCardCol, secondCardRow, secondCardCol;
 
             while (!IsGameOver(row, col))
@@ -316,18 +316,18 @@ jump3:
                 SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
                 cout << "Please enter the position of the first card (row column): ";
                 cin >> firstCardRow >> firstCardCol;
-                if (GetAsyncKeyState(VK_SHIFT)) { // oyun esnasında oyunu kaydetmek için. SHIFT TUŞU İLE
+                if (GetAsyncKeyState(VK_SHIFT)) { // oyun esnasÃ½nda oyunu kaydetmek iÃ§in. SHIFT TUÃU ÃLE
                     Save_Game(board, revealed, row, col, moves);
                     ClearScreen();
                     cout << "Your game has been successfully saved!" << endl;
                     WaitTime(2);
                     menu();
                 }
-                if (GetAsyncKeyState(VK_ESCAPE)) { // oyun esnasında doğrudan çıkış için. ESC İLE.
+                if (GetAsyncKeyState(VK_ESCAPE)) { // oyun esnasÃ½nda doÃ°rudan Ã§Ã½kÃ½Ã¾ iÃ§in. ESC ÃLE.
                     ClearScreen();
                     exit(0);
                 }
-                // Girilen konum geçerli değilse veya kart zaten açıldıysa tekrar iste
+                // Girilen konum geÃ§erli deÃ°ilse veya kart zaten aÃ§Ã½ldÃ½ysa tekrar iste
                 if (firstCardRow <= 0 || firstCardRow > row || firstCardCol <= 0 || firstCardCol > col || revealed[firstCardRow - 1][firstCardCol - 1])
                 {
                     cout << "Please make a valid move." << endl;
@@ -341,12 +341,12 @@ jump3:
                 cout << "Please enter the position of the second card (row column): ";
                 cin >> secondCardRow >> secondCardCol;
                 moves++;
-                // Girilen konum geçerli olsa veya kart zaten açıldıysa tekrar iste
+                // Girilen konum geÃ§erli olsa veya kart zaten aÃ§Ã½ldÃ½ysa tekrar iste
                 if (secondCardRow <= 0 || secondCardRow > row || secondCardCol <= 0 || secondCardCol > col || revealed[secondCardRow-1][secondCardCol-1])
                 {
                     cout << "Please make a valid move." << endl;
                     WaitTime(1);
-                    // İlk kartı tekrar kapat
+                    // Ãlk kartÃ½ tekrar kapat
                     revealed[firstCardRow-1][firstCardCol-1] = false;
                     continue;
                 }
@@ -355,7 +355,7 @@ jump3:
                 revealed[secondCardRow-1][secondCardCol-1] = true;
                 PrintBoard(row, col);
 
-                // Kartlar eşleşmişse
+                // Kartlar eÃ¾leÃ¾miÃ¾se
                 if (board[firstCardRow-1][firstCardCol-1] == board[secondCardRow-1][secondCardCol-1])
                 {
                     cout << "Match found!" << endl;
@@ -365,7 +365,7 @@ jump3:
                 {
                     cout << "No match found." << endl;
                     WaitTime(1);
-                    // Kartları kapat
+                    // KartlarÃ½ kapat
                     revealed[firstCardRow-1][firstCardCol-1] = false;
                     revealed[secondCardRow-1][secondCardCol-1] = false;
                 }
@@ -377,7 +377,7 @@ jump3:
             cout << "You won the game in " << moves << " moves" << endl;
             WaitTime(3);
             menu();
-            // Bellekten dinamik olarak oluşturulan alanları temizleme
+            // Bellekten dinamik olarak oluÃ¾turulan alanlarÃ½ temizleme
             for (int i = 0; i < row; i++)
             {
                 delete[] board[i];
@@ -505,7 +505,7 @@ bool IsGameOver(int rows, int columns)
 }
 void ClearScreen()
 {
-    // Ekranı temizlemek için platforma bağlı komutları kullan
+    // EkranÃ½ temizlemek iÃ§in platforma baÃ°lÃ½ komutlarÃ½ kullan
 #ifdef _WIN32
     system("cls");
 #else
@@ -515,7 +515,7 @@ void ClearScreen()
 
 int main()
 {
-    //intro();
+    intro();
     menu();
    
 }
@@ -525,7 +525,7 @@ void WaitTime(int x)
     this_thread::sleep_for(chrono::seconds(x));
 }
 
-// Windows konsolunda sağ üst köşeye metin yazdıran fonksiyon
+// Windows konsolunda saÃ° Ã¼st kÃ¶Ã¾eye metin yazdÃ½ran fonksiyon
 void gotoxy(int x, int y) {
     COORD coord;
     coord.X = x;
